@@ -1,10 +1,14 @@
-import { get } from "http";
-import { db, deleteDataFromDB, getDataFromDB } from "./db";
+import { db } from "./db";
 
 const seed = async () => {
   try {
+    // Create database if it doesn't exist
     await db.promise().query("CREATE DATABASE IF NOT EXISTS sales_table");
+
+    // Use the database
     await db.promise().query("USE sales_table");
+
+    // Create table
     await db.promise().query(`
       CREATE TABLE IF NOT EXISTS sales_data (
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -13,8 +17,11 @@ const seed = async () => {
         this_year INT NOT NULL
       )
     `);
-    await deleteDataFromDB();
-    const data = await getDataFromDB();
+
+    // Delete existing data
+    await db.promise().query("DELETE FROM sales_data");
+
+    // Insert new data
     await db.promise().query(`
       INSERT INTO sales_data (month, last_year, this_year) VALUES 
       ('Jan', 5000, 6000), 
@@ -24,6 +31,7 @@ const seed = async () => {
       ('May', 12000, 9200), 
       ('Jun', 13000, 8700)
     `);
+
     console.log("Database seeded successfully ✅");
   } catch (err) {
     console.error("Error seeding database ❌", err);
@@ -32,5 +40,4 @@ const seed = async () => {
   }
 };
 
-// Run the seed function
 seed();

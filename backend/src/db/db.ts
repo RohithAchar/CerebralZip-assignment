@@ -10,7 +10,6 @@ export const db = mysql.createConnection({
   port: Number(process.env.DB_PORT) || 3306,
   user: process.env.DB_USER || "root",
   password: process.env.DB_PASSWORD || "yourpassword",
-  database: process.env.DB_NAME || "sales_table",
 });
 // Check database connection
 db.connect((err) => {
@@ -24,6 +23,8 @@ db.connect((err) => {
 
 // Get data from the database
 export const getDataFromDB = (): Promise<RowDataPacket[]> => {
+  // Select the database
+  db.query("USE sales_table");
   return new Promise((resolve, reject) => {
     db.query("SELECT * FROM sales_data", (err, results) => {
       if (err) {
