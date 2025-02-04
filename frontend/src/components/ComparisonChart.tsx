@@ -75,14 +75,14 @@ export default function ComparisonChart() {
             />
             <Bar
               dataKey="last_year"
-              fill="#A5D8FF"
+              fill="#B2EFFC"
               radius={[4, 4, 0, 0]}
               name="Last year"
               barSize={30}
             />
             <Bar
               dataKey="this_year"
-              fill="#6C47FF"
+              fill="#0D70F7"
               radius={[4, 4, 0, 0]}
               name="This year"
               barSize={30}

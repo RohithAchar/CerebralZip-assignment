@@ -66,7 +66,7 @@ const CustomersChart: React.FC = () => {
               <Line
                 type="monotone"
                 dataKey="webSales"
-                stroke="#4F46E5"
+                stroke="#0D70F7"
                 strokeWidth={2}
                 dot={false}
                 isAnimationActive={false}
@@ -74,7 +74,7 @@ const CustomersChart: React.FC = () => {
               <Line
                 type="monotone"
                 dataKey="offlineSales"
-                stroke="#38BDF8"
+                stroke="#B2EFFC"
                 strokeWidth={2}
                 dot={false}
                 isAnimationActive={false}

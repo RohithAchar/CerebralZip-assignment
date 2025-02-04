@@ -1,7 +1,3 @@
-Here’s the updated README with the dashboard image at the start:
-
----
-
 # Project Setup Instructions
 
 ![Dashboard Image](dashboard-image.png)
@@ -31,6 +27,12 @@ cd CerebralZip-assignment
 
 3. Start the MySQL database (Ensure MySQL is installed and running).
 
+   To run the database in a Docker container, you can use:
+
+   ```bash
+   docker run --name mysql-container -e MYSQL_ROOT_PASSWORD=yourpassword -d -p 3306:3306 mysql:latest
+   ```
+
 4. Seed the database:
 
    ```bash
@@ -38,6 +40,7 @@ cd CerebralZip-assignment
    ```
 
 5. Start the backend server:
+
    ```bash
    npm run start
    ```
@@ -47,16 +50,19 @@ cd CerebralZip-assignment
 1. Navigate to the `frontend` directory:
 
    ```bash
-   cd ../frontend
+   cd ./frontend
    ```
 
-2. Start the development server:
+2. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+
    ```bash
    npm run dev
    ```
 
 Your application should now be running!
-
----
-
-Make sure to replace `path/to/your/dashboard-image.png` with the actual relative path to your dashboard image in the project.

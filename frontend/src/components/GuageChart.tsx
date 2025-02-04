@@ -12,7 +12,7 @@ const GaugeChart: React.FC<GaugeChartProps> = ({ value, maxValue }) => {
     { name: "Remaining", value: maxValue - value },
   ];
 
-  const COLORS = ["#4F46E5", "#E5E7EB"];
+  const COLORS = ["#0D70F7", "#E5E7EB"];
 
   return (
     <div style={{ display: "flex", justifyContent: "center" }}>
