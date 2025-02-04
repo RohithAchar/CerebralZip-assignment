@@ -1,55 +1,33 @@
-import React from "react";
-import { Camera, Dumbbell, Drum as Vacuum } from "lucide-react";
-
-interface Product {
-  id: number;
-  name: string;
-  icon: React.ReactNode;
-  soldAmount: number;
-  unitPrice: number;
-  revenue: number;
-  rating: number;
-}
+import { useEffect, useState } from "react";
+import { Product } from "../utils/types";
+import { getProductsData } from "../utils/api";
 
 function ProductsTable() {
-  const products: Product[] = [
-    {
-      id: 1,
-      name: "Camera MI 360°",
-      icon: <Camera className="w-5 h-5 text-gray-700" />,
-      soldAmount: 432,
-      unitPrice: 120,
-      revenue: 51840,
-      rating: 4.81,
-    },
-    {
-      id: 2,
-      name: "Massage Gun",
-      icon: <Dumbbell className="w-5 h-5 text-gray-700" />,
-      soldAmount: 120,
-      unitPrice: 112,
-      revenue: 25440,
-      rating: 3.44,
-    },
-    {
-      id: 3,
-      name: "Vacuum-Mop 2 Pro",
-      icon: <Vacuum className="w-5 h-5 text-gray-700" />,
-      soldAmount: 221,
-      unitPrice: 320,
-      revenue: 15123,
-      rating: 3.22,
-    },
-    {
-      id: 4,
-      name: "Vacuum-Mop 2",
-      icon: <Vacuum className="w-5 h-5 text-gray-700" />,
-      soldAmount: 223,
-      unitPrice: 234,
-      revenue: 32812,
-      rating: 3.0,
-    },
-  ];
+  const [products, setProducts] = useState<Product[] | undefined>(undefined);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getProductsData();
+        console.log(response);
+        setProducts(response);
+      } catch (error) {
+        console.error("Error fetching products data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  if (!products) {
+    return <div>Loading...</div>;
+  }
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="bg-white w-full">
@@ -77,9 +55,11 @@ function ProductsTable() {
                 <tr key={product.id} className="border-t border-gray-100">
                   <td className="py-4">
                     <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-gray-100 rounded-lg flex items-center justify-center">
-                        {product.icon}
-                      </div>
+                      <img
+                        src={product.image_url}
+                        alt={product.name}
+                        className="w-10 h-10 rounded-lg object-cover"
+                      />
                       <span className="text-sm font-medium text-gray-900">
                         {product.name}
                       </span>

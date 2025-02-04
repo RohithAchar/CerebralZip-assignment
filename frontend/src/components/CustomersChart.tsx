@@ -8,7 +8,10 @@ import {
   Tooltip,
 } from "recharts";
 import { LoaderCircle } from "lucide-react"; // Ensure you import the loader
-const data = [
+import { getChannelSalesData } from "../utils/api";
+import { CustomerDeviceData } from "../utils/types";
+
+const customerDevice = [
   { date: "2024-01", webSales: 2000, offlineSales: 1000 },
   { date: "2024-02", webSales: 2400, offlineSales: 1500 },
   { date: "2024-03", webSales: 3000, offlineSales: 2000 },
@@ -18,13 +21,28 @@ const data = [
 ];
 
 const CustomersChart: React.FC = () => {
+  const [data, setData] = useState<CustomerDeviceData[] | undefined>(undefined);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      setLoading(false); // Simulate loading data
-    }, 2000); // Adjust as needed
-    return () => clearTimeout(timeout);
+    const fetchData = async () => {
+      try {
+        const response = await getChannelSalesData();
+        setData(
+          response?.map((item) => ({
+            date: item.date,
+            webSales: item.web_sales,
+            offlineSales: item.offline_sales,
+          }))
+        );
+      } catch (error) {
+        console.error("Error fetching sales data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
   }, []);
 
   return (

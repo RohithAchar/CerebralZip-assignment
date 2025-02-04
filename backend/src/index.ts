@@ -3,7 +3,7 @@ import basicAuth from "basic-auth";
 import cors from "cors";
 import dotenv from "dotenv";
 
-import { getDataFromDB } from "./db/db";
+import { getDataFromDB, getChannelSalesData, getProductsData } from "./db/db";
 
 dotenv.config();
 
@@ -29,6 +29,30 @@ const checkAuth = (req: Request, res: Response, next: NextFunction): void => {
 app.get("/api/data", checkAuth, async (req: Request, res: Response) => {
   try {
     const data = await getDataFromDB();
+    res.json(data);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+app.get(
+  "/api/channel-sales",
+  checkAuth,
+  async (req: Request, res: Response) => {
+    try {
+      const data = await getChannelSalesData();
+      res.json(data);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  }
+);
+
+app.get("/api/products", checkAuth, async (req: Request, res: Response) => {
+  try {
+    const data = await getProductsData();
     res.json(data);
   } catch (err) {
     console.error(err);

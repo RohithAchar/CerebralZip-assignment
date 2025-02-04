@@ -2,6 +2,8 @@ import axios from "axios";
 import {
   CommunityFeedback,
   CustomerDeviceData,
+  CustomerDeviceDataResponse,
+  Product,
   PrrResponse,
   SalesData,
   SalesScore,
@@ -42,8 +44,6 @@ export const getPrr = async (): Promise<PrrResponse | undefined> => {
       },
     });
 
-    console.log(response.data);
-
     return response.data;
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -61,7 +61,6 @@ export const getSalesData = async (): Promise<SalesData[] | undefined> => {
       },
     });
 
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -79,7 +78,6 @@ export const getSalesScore = async (): Promise<SalesScore | undefined> => {
       },
     });
 
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -99,7 +97,6 @@ export const getDeviceData = async (): Promise<
       },
     });
 
-    console.log(response.data);
     return response.data;
   } catch (error) {
     console.error("Error fetching data:", error);
@@ -117,7 +114,40 @@ export const getFeedback = async (): Promise<CommunityFeedback | undefined> => {
       },
     });
 
-    console.log(response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+};
+
+export const getChannelSalesData = async (): Promise<
+  CustomerDeviceDataResponse[] | undefined
+> => {
+  try {
+    const encodedCredentials = btoa(
+      `${localStorage.getItem("username")}:${localStorage.getItem("password")}`
+    );
+    const response = await axios.get(`${LOCAL_API_URL}/channel-sales`, {
+      headers: {
+        Authorization: `Basic ${encodedCredentials}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+};
+
+export const getProductsData = async (): Promise<Product[] | undefined> => {
+  try {
+    const encodedCredentials = btoa(
+      `${localStorage.getItem("username")}:${localStorage.getItem("password")}`
+    );
+    const response = await axios.get(`${LOCAL_API_URL}/products`, {
+      headers: {
+        Authorization: `Basic ${encodedCredentials}`,
+      },
+    });
     return response.data;
   } catch (error) {
     console.error("Error fetching data:", error);

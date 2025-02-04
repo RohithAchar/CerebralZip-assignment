@@ -18,9 +18,15 @@ export interface SalesScore {
 }
 
 export interface CustomerDeviceData {
-  date2: string;
-  unique_count: number;
-  cumulative_tweets: number;
+  date: string;
+  webSales: number;
+  offlineSales: number;
+}
+
+export interface CustomerDeviceDataResponse {
+  date: string;
+  web_sales: number;
+  offline_sales: number;
 }
 
 export interface CommunityFeedback {
@@ -33,4 +39,14 @@ export interface StatsCardProps {
   title: string;
   value: number;
   change: number;
+}
+
+export interface Product {
+  id: number;
+  name: string;
+  image_url: string;
+  soldAmount: number;
+  unitPrice: number;
+  revenue: number;
+  rating: number;
 }

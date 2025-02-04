@@ -36,13 +36,30 @@ export const getDataFromDB = (): Promise<RowDataPacket[]> => {
   });
 };
 
-export const deleteDataFromDB = (): Promise<boolean> => {
+// Get data from the channel_sales table
+export const getChannelSalesData = (): Promise<RowDataPacket[]> => {
+  // Select the database
+  db.query("USE sales_table");
   return new Promise((resolve, reject) => {
-    db.query("DELETE FROM sales_data", (err, results) => {
+    db.query("SELECT * FROM channel_sales", (err, results) => {
       if (err) {
         reject(err);
       } else {
-        resolve(true);
+        resolve(results as RowDataPacket[]); // Explicitly cast as RowDataPacket[]
+      }
+    });
+  });
+};
+
+export const getProductsData = (): Promise<RowDataPacket[]> => {
+  // Select the database
+  db.query("USE sales_table");
+  return new Promise((resolve, reject) => {
+    db.query("SELECT * FROM products", (err, results) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(results as RowDataPacket[]); // Explicitly cast as RowDataPacket[]
       }
     });
   });
