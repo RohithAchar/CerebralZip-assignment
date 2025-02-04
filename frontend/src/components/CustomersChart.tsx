@@ -11,15 +11,6 @@ import { LoaderCircle } from "lucide-react"; // Ensure you import the loader
 import { getChannelSalesData } from "../utils/api";
 import { CustomerDeviceData } from "../utils/types";
 
-const customerDevice = [
-  { date: "2024-01", webSales: 2000, offlineSales: 1000 },
-  { date: "2024-02", webSales: 2400, offlineSales: 1500 },
-  { date: "2024-03", webSales: 3000, offlineSales: 2000 },
-  { date: "2024-04", webSales: 3200, offlineSales: 2500 },
-  { date: "2024-05", webSales: 4000, offlineSales: 3000 },
-  { date: "2024-06", webSales: 7500, offlineSales: 3500 },
-];
-
 const CustomersChart: React.FC = () => {
   const [data, setData] = useState<CustomerDeviceData[] | undefined>(undefined);
   const [loading, setLoading] = useState(true);
@@ -102,18 +93,20 @@ const CustomersChart: React.FC = () => {
         </div>
       )}
 
-      <div className="flex items-center gap-6 mt-4">
-        <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-sm bg-[#4F46E5]"></div>
-          <span className="text-sm text-gray-600">Web sales</span>
-          <span className="text-sm font-semibold text-gray-900 ml-1">
-            1,504%
-          </span>
+      <div className="flex items-center gap-4 mt-4">
+        <div>
+          <div className="flex gap-2 items-center justify-between">
+            <p className="text-sm text-gray-600">Web sales</p>
+            <div className="w-3 h-3 rounded-sm bg-[#4F46E5]"></div>
+          </div>
+          <h3 className="text-sm font-semibold text-gray-900">1,504%</h3>
         </div>
-        <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-sm bg-[#38BDF8]"></div>
-          <span className="text-sm text-gray-600">Offline selling</span>
-          <span className="text-sm font-semibold text-gray-900 ml-1">473%</span>
+        <div>
+          <div className="flex gap-2 items-center justify-between">
+            <p className="text-sm text-gray-600">Offline selling</p>
+            <div className="w-3 h-3 rounded-sm bg-[#38BDF8]"></div>
+          </div>
+          <h3 className="text-sm font-semibold text-gray-900">473%</h3>
         </div>
       </div>
     </div>
